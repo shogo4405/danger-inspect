@@ -1,3 +1,5 @@
+require_relative 'problem'
+
 module Danger
   # This is your plugin class. Any attributes or methods you expose here will
   # be available from within your Dangerfile.
@@ -17,7 +19,6 @@ module Danger
   # @tags monday, weekends, time, rattata
   #
   class DangerInspect < Plugin
-
     # An attribute that you can read/write from your Dangerfile
     #
     # @return   [Array<String>]
@@ -26,8 +27,35 @@ module Danger
     # A method that you can call from your Dangerfile
     # @return   [Array<String>]
     #
-    def warn_on_mondays
-      warn 'Trying to merge code on a Monday' if Date.today.wday == 1
+    def report(dir)
+      problems = []
+      Dir.glob("#{dir}/*.xml") do |file|
+        problems.push(read_xml(file)) unless file.include?('.descriptions.xml')
+      end
+      comment(problems.flatten)
+    end
+
+    private
+
+    def read_xml(file)
+      require 'rexml/document'
+      problems = []
+      xml = REXML::Document.new(File.read(file))
+      xml
+        .get_elements('problems/problem')
+        .each { |element| problems.push(Problem.generate(element)) }
+      problems
+    end
+
+    def comment(problems)
+      problems.each do |problem|
+        case problem.severity.downcase
+        when 'info'
+          message(problem.message, file: problem.file, line: problem.line)
+        else
+          warn(problem.message, file: problem.file, line: problem.line)
+        end
+      end
     end
   end
 end
