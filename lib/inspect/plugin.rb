@@ -1,32 +1,19 @@
 require_relative 'problem'
 
 module Danger
-  # This is your plugin class. Any attributes or methods you expose here will
-  # be available from within your Dangerfile.
+  # Danger plugin for code inspections.
   #
-  # To be published on the Danger plugins site, you will need to have
-  # the public interface documented. Danger uses [YARD](http://yardoc.org/)
-  # for generating documentation from your plugin source, and you can verify
-  # by running `danger plugins lint` or `bundle exec rake spec`.
+  # @example Parse the XML files, and report messages.
   #
-  # You should replace these comments with a public description of your library.
-  #
-  # @example Ensure people are well warned about merging on Mondays
-  #
-  #          my_plugin.warn_on_mondays
+  #          inspect.report 'path/to/inspect-result_dir'
   #
   # @see  shogo4405/danger-inspect
-  # @tags monday, weekends, time, rattata
+  # @tags lint
   #
   class DangerInspect < Plugin
-    # An attribute that you can read/write from your Dangerfile
+    # Report code inspections messages.
     #
-    # @return   [Array<String>]
-    attr_accessor :my_attribute
-
-    # A method that you can call from your Dangerfile
-    # @return   [Array<String>]
-    #
+    # @return   [void]
     def report(dir)
       problems = []
       Dir.glob("#{dir}/*.xml") do |file|

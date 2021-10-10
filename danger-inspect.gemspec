@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Inspect::VERSION
   spec.authors       = ['shogo4405']
   spec.email         = ['shogo4405@gmail.com']
-  spec.description   = %q{A short description of danger-inspect.}
-  spec.summary       = %q{A longer description of danger-inspect.}
+  spec.description   = %q{Danger plugin for code inspections.}
+  spec.summary       = %q{Danger plugin for code inspections. You can see the code inspections as danger messages.}
   spec.homepage      = 'https://github.com/shogo4405/danger-inspect'
   spec.license       = 'MIT'
 

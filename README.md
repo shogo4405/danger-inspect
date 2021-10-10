@@ -1,15 +1,33 @@
 # danger-inspect
 
-A description of danger-inspect.
+Danger plugin for code inspections.
+
+|IntelliJ IDEA|Danger|
+|:-:|:-:|
+|<img width="588" alt="スクリーンショット 2021-10-10 15 12 11" src="https://user-images.githubusercontent.com/810189/136684847-a191193b-a43c-4a61-a53f-68b92259d8d3.png">|<img width="608" alt="スクリーンショット 2021-10-10 15 21 35" src="https://user-images.githubusercontent.com/810189/136685067-1b832a71-730d-4408-83ef-355b089c19b8.png">
+
 
 ## Installation
-
-    $ gem install danger-inspect
+```sh
+$ gem install danger-inspect
+```
 
 ## Usage
 
-    Methods and attributes from this plugin are available in
-    your `Dangerfile` under the `inspect` namespace.
+### Inspect
+[Run code inspections from the command line.](https://www.jetbrains.com/help/idea/command-line-code-inspector.html)
+```sh
+$ idea.sh inspect #{workspace} #{workspace}/inspect.xml /path/to/inspect-result_dir
+```
+```sh
+$ /opt/android-studio/bin/inspect.sh #{workspace} #{workspace}/inspect.xml /path/to/inspect-result_dir
+```
+
+### Dangerfile
+*Please inspect before danger step.*
+```rb
+inspect.report 'path/to/inspect-result_dir'
+```
 
 ## Development
 
